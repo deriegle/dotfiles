@@ -1,0 +1,7 @@
+alias be="bundle exec"
+alias bi="bundle install"
+alias cddot="cd ~/code/dotfiles"
+alias cdcode="cd ~/code"
+alias ll="ls -1a"
+alias gti="git"
+alias it="git"
