@@ -21,6 +21,8 @@ call plug#begin("~/.config/nvim/plugged")
   endif
 call plug#end()
 
+colorscheme darkblue
+
 set dir=/tmp//
 set hidden
 set ignorecase
@@ -53,3 +55,44 @@ nmap <silent> <LocalLeader>rl :wa <bar> :TestLast<CR>
 nmap <silent> <LocalLeader>p :Files<CR>
 
 nmap <silent> <LocalLeader><LocalLeader> <C-^>
+
+"""""" ALE Configuration
+  " when to lint
+  let g:ale_lint_on_text_changed = 0
+  let g:ale_lint_on_enter = 1
+  let g:ale_lint_on_save = 1
+  let g:ale_lint_on_filetype_changed = 1
+
+  " how to lint
+  let g:ale_linters = {'ruby': ['rubocop']}
+
+  " add sign column emoticons
+  let g:ale_sign_error = 'e'
+  let g:ale_sign_warning = 'w'
+
+  " message format
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+  " always show the sign column
+  let g:ale_sign_column_always = 1
+  let g:ale_set_higlights = 1
+
+  " what to fix and how
+  let g:ale_fixers = {
+  \  'javascript': ['eslint'],
+  \  'ruby': ['rubocop']
+  \}
+
+  " fix on file save
+  let g:ale_fix_on_save = 1
+  " use bundler to allow rubocop to access project gems for linting
+  let g:ale_ruby_rubocop_executable = 'bundle'
+
+  " reset sign column background colors
+  highlight link ALEError SignColumn
+  highlight link ALEWarning SignColumn
+  highlight link ALEErrorSign SignColumn
+  highlight link ALEWarningSign SignColumn
+
+" faster fzf fuzzy find respecting gitignore
+let $FZF_DEFAULT_COMMAND = '((git ls-tree -r --name-only HEAD; git ls-files -o --exclude-standard) || find . -path "*/\.*" -prune -o -type f -print -o -type l -print | sed s/^..//) 2> /dev/null'
