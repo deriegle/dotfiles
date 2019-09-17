@@ -7,7 +7,13 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'mxw/vim-jsx'
+  Plug 'janko-m/vim-test'
   Plug 'airblade/vim-gitgutter'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'w0rp/ale'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
 
   " Source custom plugins
   if !empty(glob("$HOME/.my_nvim_plugins"))
@@ -21,6 +27,7 @@ set ignorecase
 set mouse=
 set number
 set ruler
+set nowrap
 set showmatch
 set smartcase
 set textwidth=0
@@ -38,3 +45,11 @@ set nomodeline
 imap <C-L> <SPACE>=><SPACE>
 
 noremap <leader>so :so $MYVIMRC<CR>
+
+nmap <silent> <LocalLeader>nt :NERDTreeToggle<CR>
+nmap <silent> <LocalLeader>rb :wa <bar> :TestFile<CR>
+nmap <silent> <LocalLeader>rf :wa <bar> :TestNearest<CR>
+nmap <silent> <LocalLeader>rl :wa <bar> :TestLast<CR>
+nmap <silent> <LocalLeader>p :Files<CR>
+
+nmap <silent> <LocalLeader><LocalLeader> <C-^>
