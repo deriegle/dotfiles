@@ -14,6 +14,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'w0rp/ale'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
+  Plug 'tomasiser/vim-code-dark'
 
   " Source custom plugins
   if !empty(glob("$HOME/.my_nvim_plugins"))
@@ -21,7 +22,9 @@ call plug#begin("~/.config/nvim/plugged")
   endif
 call plug#end()
 
-colorscheme darkblue
+set t_Co=256
+set t_ut=
+colorscheme codedark
 
 set dir=/tmp//
 set hidden
@@ -55,6 +58,8 @@ nmap <silent> <LocalLeader>rl :wa <bar> :TestLast<CR>
 nmap <silent> <LocalLeader>p :Files<CR>
 
 nmap <silent> <LocalLeader><LocalLeader> <C-^>
+
+let g:airline_theme = 'codedark'
 
 """""" ALE Configuration
   " when to lint
