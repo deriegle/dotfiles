@@ -7,3 +7,4 @@ if [ -f $HOME/.bashrc ]; then
 fi
 
 export GIT_EDITOR=nvim
+export PATH="$PATH:$HOME/code/flutter/bin"
