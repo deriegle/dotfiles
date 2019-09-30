@@ -8,6 +8,7 @@ fi
 
 export GIT_EDITOR=nvim
 export EDITOR=nvim
+export REACT_EDITOR=none
 
 export PATH="/user/local/sbin:$PATH"
 export PATH="$PATH:$HOME/code/flutter/bin"
