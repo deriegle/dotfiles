@@ -16,6 +16,12 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'junegunn/fzf.vim'
   Plug 'tomasiser/vim-code-dark'
 
+  " Custom Plugins
+  Plug 'tpope/vim-projectionist'
+  Plug 'christoomey/vim-tmux-runner'
+  Plug 'dart-lang/dart-vim-plugin'
+  Plug 'thosakwe/vim-flutter'
+
   " Source custom plugins
   if !empty(glob("$HOME/.my_nvim_plugins"))
     source $HOME/.my_nvim_plugins
@@ -43,21 +49,48 @@ set softtabstop=2
 set expandtab
 set undofile
 set clipboard=unnamed
+set nospell
+set relativenumber
+set nowrap
 
+set mouse=a " Mouse on
 set modelines=0
 set nomodeline
 
+nmap 0 ^
 imap <C-L> <SPACE>=><SPACE>
 
-noremap <leader>so :so $MYVIMRC<CR>
+noremap j gj
+noremap k gk
+nnoremap <CR> :noh<CR>
+nmap <silent> <C-s> :w<CR>
 
+" Ripgrep
+nnoremap <silent> <LocalLeader>rr :Rg<CR>
+
+nmap <silent> <LocalLeader>so :so $MYVIMRC<CR>
 nmap <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 nmap <silent> <LocalLeader>rb :wa <bar> :TestFile<CR>
 nmap <silent> <LocalLeader>rf :wa <bar> :TestNearest<CR>
 nmap <silent> <LocalLeader>rl :wa <bar> :TestLast<CR>
 nmap <silent> <LocalLeader>p :Files<CR>
-
 nmap <silent> <LocalLeader><LocalLeader> <C-^>
+nmap <silent> <LocalLeader>ec :tabnew ~/code/dotfiles/nvim/init.vim<CR>
+
+" FLUTTER LEADER MAPPINGS
+" nnoremap <leader>fa :FlutterRun<cr>
+" nnoremap <leader>fq :FlutterQuit<cr>
+" nnoremap <leader>fr :FlutterHotReload<cr>
+" nnoremap <leader>fR :FlutterHotRestart<cr>
+" nnoremap <leader>fD :FlutterVisualDebug<cr>
+
+" GIT GUTTER
+set updatetime=300
+let g:gitgutter_enabled=1
+
+" TESTING
+let g:VimuxOrientation="v"
+let test#strategy="vtr"
 
 let g:airline_theme = 'codedark'
 
@@ -101,3 +134,26 @@ let g:airline_theme = 'codedark'
 
 " faster fzf fuzzy find respecting gitignore
 let $FZF_DEFAULT_COMMAND = '((git ls-tree -r --name-only HEAD; git ls-files -o --exclude-standard) || find . -path "*/\.*" -prune -o -type f -print -o -type l -print | sed s/^..//) 2> /dev/null'
+
+autocmd BufNewFile,BufRead *.tsx, *.jsx set filetype=typescript.tsx
+
+" Show Preview of file in FZF
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir GFiles
+      \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" <C-h><C-h> to use Ripgrep for total line completion
+inoremap <expr> <C-h>C-h> fzf#vim#complete(fzf#wrap({
+      \ 'prefix': '^.*$',
+      \ 'source': 'rg -n ^ --color always',
+      \ 'options': '--ansi --delimiter : --nth 3..',
+      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }
+      \ }))
+
+"command! -bang -nargs=* Rg
+"      \ call fzf#vim#grep(
+"      \ 'rg --column --line-number --no-heading --color-always --smart-case '.shellescape(<q-args>), 1,
+"      \ <bang>0 ? fzf#vim#with_preview('up:60%')
+"      \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+"      \ <bang>0)
