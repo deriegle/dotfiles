@@ -6,5 +6,5 @@ alias ll="ls -1a"
 alias gti="git"
 alias it="git"
 alias gl="git log --stat"
-alias so="source ~/.bashrc"
-
+alias so="source ~/.bash_profile"
+alias dart="~/code/flutter/bin/cache/dart-sdk/bin/dart"

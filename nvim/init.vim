@@ -6,6 +6,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'posva/vim-vue'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-rails'
   Plug 'mxw/vim-jsx'
   Plug 'janko-m/vim-test'
   Plug 'airblade/vim-gitgutter'
@@ -15,12 +16,15 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'tomasiser/vim-code-dark'
+  " Track the engine.
+  Plug 'SirVer/ultisnips'
 
   " Custom Plugins
   Plug 'tpope/vim-projectionist'
   Plug 'christoomey/vim-tmux-runner'
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'thosakwe/vim-flutter'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
   " Source custom plugins
   if !empty(glob("$HOME/.my_nvim_plugins"))
@@ -69,6 +73,7 @@ nmap <silent> <C-s> :w<CR>
 nnoremap <silent> <LocalLeader>rr :Rg<CR>
 
 nmap <silent> <LocalLeader>so :so $MYVIMRC<CR>
+nmap <silent> <LocalLeader>pi :PlugInstall<CR>
 nmap <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 nmap <silent> <LocalLeader>rb :wa <bar> :TestFile<CR>
 nmap <silent> <LocalLeader>rf :wa <bar> :TestNearest<CR>
@@ -93,6 +98,17 @@ let g:VimuxOrientation="v"
 let test#strategy="vtr"
 
 let g:airline_theme = 'codedark'
+
+" UltiSnips configuration
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=[$HOME.'/code/snippets']
+
 
 """""" ALE Configuration
   " when to lint
@@ -151,9 +167,3 @@ inoremap <expr> <C-h>C-h> fzf#vim#complete(fzf#wrap({
       \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }
       \ }))
 
-"command! -bang -nargs=* Rg
-"      \ call fzf#vim#grep(
-"      \ 'rg --column --line-number --no-heading --color-always --smart-case '.shellescape(<q-args>), 1,
-"      \ <bang>0 ? fzf#vim#with_preview('up:60%')
-"      \         : fzf#vim#with_preview('right:50%:hidden', '?'),
-"      \ <bang>0)
