@@ -8,3 +8,6 @@ alias it="git"
 alias gl="git log --stat"
 alias so="source ~/.bash_profile"
 alias dart="~/code/flutter/bin/cache/dart-sdk/bin/dart"
+alias pub="~/code/flutter/bin/cache/dart-sdk/bin/pub"
+alias dartfmt="~/code/flutter/bin/cache/dart-sdk/bin/dartfmt"
+
