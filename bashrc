@@ -14,6 +14,7 @@ export PATH="/user/local/sbin:$PATH"
 export PATH="$PATH:$HOME/code/depot_tools" # Chrome depot tools
 export PATH="$PATH:$HOME/code/flutter/bin"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
