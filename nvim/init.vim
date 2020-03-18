@@ -2,6 +2,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'jlanzarotta/bufexplorer'
+  Plug 'tpope/vim-endwise'
   Plug 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'tpope/vim-fugitive'
@@ -16,8 +17,8 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'tomasiser/vim-code-dark'
-  " Track the engine.
-  Plug 'SirVer/ultisnips'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
 
   " Custom Plugins
   Plug 'tpope/vim-projectionist'
@@ -25,6 +26,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'dart-lang/dart-vim-plugin'
   Plug 'thosakwe/vim-flutter'
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+  Plug 'joshdick/onedark.vim'
 
   " Source custom plugins
   if !empty(glob("$HOME/.my_nvim_plugins"))
@@ -34,7 +36,8 @@ call plug#end()
 
 set t_Co=256
 set t_ut=
-colorscheme codedark
+set termguicolors
+colorscheme onedark
 
 set dir=/tmp//
 set hidden
@@ -73,7 +76,7 @@ nmap <silent> <C-s> :w<CR>
 nnoremap <silent> <LocalLeader>rr :Rg<CR>
 
 nmap <silent> <LocalLeader>so :so $MYVIMRC<CR>
-nmap <silent> <LocalLeader>pi :PlugInstall<CR>
+nmap <silent> <LocalLeader>in :PlugInstall<CR>
 nmap <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 nmap <silent> <LocalLeader>rb :wa <bar> :TestFile<CR>
 nmap <silent> <LocalLeader>rf :wa <bar> :TestNearest<CR>
@@ -151,7 +154,8 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/code/snippets']
 " faster fzf fuzzy find respecting gitignore
 let $FZF_DEFAULT_COMMAND = '((git ls-tree -r --name-only HEAD; git ls-files -o --exclude-standard) || find . -path "*/\.*" -prune -o -type f -print -o -type l -print | sed s/^..//) 2> /dev/null'
 
-autocmd BufNewFile,BufRead *.tsx, *.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+autocmd BufWritePost *.dart DartFmt
 
 " Show Preview of file in FZF
 command! -bang -nargs=? -complete=dir Files
@@ -167,3 +171,79 @@ inoremap <expr> <C-h>C-h> fzf#vim#complete(fzf#wrap({
       \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }
       \ }))
 
+
+highlight Normal guibg=#21242a
+highlight MatchParen guifg=#C678DD guibg=#504066
+"highlight LineNr    guifg=#151822
+highlight LineNr    guifg=#353e5c
+highlight CursorLineNr guifg=#56B6C2
+highlight Error guifg=#f57373 guibg=#804040
+highlight vimError guifg=#f57373 guibg=#804040
+
+hi IndentGuidesEven guibg=#21242a guifg=#1f1f28
+hi IndentGuidesOdd guibg=#262a36 guifg=#1f1f28
+hi Comment cterm=italic guifg=#4a5158
+"hi String guifg=#98C379 guibg=#2a2e34
+
+""" browns
+" function params: numbers and constants
+hi Statement guifg=#907161
+hi Conditional guifg=#907161
+hi Keyword guifg=#56B6C2
+hi Function guifg=#56B6C2
+
+" Yellows
+hi Number guifg=#E5C07B
+hi Special guifg=#E5C07B
+hi Boolean guifg=#E5C07B
+
+" purple
+hi CtrlPMatch guifg=#ba9ef7
+hi Visual guibg=#364652
+
+" medium red: if else operators
+hi Preproc guifg=#e86868
+hi Type guifg=#e86868
+
+
+
+"""""" vim-jsx ONLY
+hi Identifier cterm=italic
+
+" Blues
+" light blues
+hi xmlTagName guifg=#59ACE5
+hi xmlTag guifg=#59ACE5
+
+" dark blues
+hi xmlEndTag guifg=#2974a1
+hi jsxCloseString guifg=#2974a1
+hi htmlTag guifg=#2974a1
+hi htmlEndTag guifg=#2974a1
+hi htmlTagName guifg=#59ACE5
+hi jsxAttrib guifg=#1BD1C1
+
+" cyan
+hi Constant guifg=#56B6C2
+hi typescriptBraces guifg=#56B6C2
+hi typescriptEndColons guifg=#56B6C2
+hi typescriptRef guifg=#56B6C2
+hi typescriptPropietaryMethods guifg=#56B6C2
+hi typescriptEventListenerMethods guifg=#56B6C2
+hi typescriptFunction guifg=#56B6C2
+hi typescriptVars guifg=#56B6C2
+hi typescriptParen guifg=#56B6C2
+hi typescriptDotNotation guifg=#56B6C2
+hi typescriptBracket guifg=#56B6C2
+hi typescriptBlock guifg=#56B6C2
+hi typescriptJFunctions guifg=#56B6C2
+hi typescriptSFunctions guifg=#56B6C2
+hi typescriptInterpolationDelimiter guifg=#56B6C2
+hi typescriptIdentifier guifg=#907161 cterm=italic
+
+" javascript
+hi jsParens guifg=#56B6C2
+hi jsObjectBraces guifg=#C678DD
+hi jsFuncBraces guifg=#56B6C2
+hi jsObjectFuncName guifg=#D19A66
+hi jsObjectKey guifg=#56B6C2

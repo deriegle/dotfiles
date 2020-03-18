@@ -1,4 +1,4 @@
-Create symlinks for bashr
+Create symlinks for bashrc
 
 ```bash
 ln -s ~/code/dotfiles/bashrc ~/.bashrc
@@ -8,6 +8,7 @@ ln -s ~/code/dotfiles/nvim ~/.config/nvim
 
 ln -s ~/code/dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/code/dotfiles/aliases ~/.bash_aliases
+ln -s ~/code/dotfiles/.git-completion.bash ~/.git-completion.bash
 ```
 
 Add custom gitconfig to ~/.gitconfig
